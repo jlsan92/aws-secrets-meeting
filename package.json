@@ -1,0 +1,27 @@
+{
+  "name": "aws-secrets-meeting",
+  "version": "1.0.0",
+  "description": "Secrets using AWS meeting",
+  "main": "index.js",
+  "engines": {
+    "node": "12.2.0",
+    "npm": "6.9.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlsan92/aws-secrets-meeting.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jlsan92/aws-secrets-meeting/issues"
+  },
+  "homepage": "https://github.com/jlsan92/aws-secrets-meeting#readme",
+  "dependencies": {
+    "aws-sdk": "^2.452.0",
+    "express": "^4.16.4"
+  }
+}

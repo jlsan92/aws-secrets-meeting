@@ -1,0 +1,24 @@
+# Log files & garbage
+.DS_Store
+Thumbs.db
+*.log
+*~
+*#
+
+# Editor-related stuff
+.netbeans
+nbproject
+.idea
+*.sublime-*
+*.atom-*
+.vscode
+.tern-*
+.languagebabel
+jsconfig.json
+
+# Dependency directories
+node_modules/
+jspm_packages/
+.node_history
+lcov.info
+results

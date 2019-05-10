@@ -1,0 +1,46 @@
+sudo: required
+dist: trusty
+
+language: node_js
+node_js:
+  - 12.2.0
+
+branches:
+  only:
+    - master
+
+cache:
+  directories:
+    - node_modules
+
+before_install:
+  - echo Before install!
+
+install:
+  - echo Installing
+
+before_script:
+  - echo Before script
+
+script:
+  - echo Script
+
+after_success:
+  - echo Success!
+
+env:
+  global:
+    - NODE_ENV=test
+
+deploy:
+  - provider: heroku
+    skip_cleanup: true
+    api_key:
+      secure: VoS00mKg9gEGjVkPcYb7fmIxSyI9wYlXl23A2rzyc/HeooU33cPR8pd2HuJK3JTrgyHXPnyT9Sj7Kz/4i49vdW1IP3KlHjbTxwAAp5Cv0QjY6pfg6dAxw6LqzPYTbgkXFKoFNLxLbNkwquRwnPC3xY/11BTaUGZBUQPNJXubRZBH7VVB4A9hxR1q8LAk5zjnSof9YQ2gBrWC5iRZqKnKYztlA0pZa1qtuAMSNgnofiSbA1pllmPoQF1dJdoGGvNqsEopKQFzXXUNQk2AdtEyvRPwTzAYWs5e4Bm0skbaBvO0TmrqtsHFm1tp5GsNJ49iYeb35Tva8JOcwq7Kn5I8xO2pkc1qBDAyD+aPsiUk1pJyM6AR+8Tnvjdk74mszEmEmJLoQiIwvGIyNPd2aQpDKEyd2utDzKCI7T4R06/e41t+e+dAMZsgNRM/TWlh8y3KvQTzg525EgliWP95vFIloezR+pAL4r6CFdmVged4TeruvsnLBHF6UUBD+ld2tvgvlcrjAzmOQt/Cl5I4h+R2DqyfkDSxl0pxZwm3svBywTpFUnj2mnHcjQJBH0d7VZbI/ViMi9vF+qeo3tKrZFQcF0q7a2vdEsmyH3eiB8wQ5qq3RAyou5eJPh3peU/HR0AT4IgjJHHnkAaRUULaNezlRgLkAxkJRgL47KghGRKxMJo=
+    app:
+      master: aws-secrets-meeting
+    on:
+      repo: jlsan92/aws-secrets-meeting
+
+notifications:
+  email: false
