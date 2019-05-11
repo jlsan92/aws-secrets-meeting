@@ -22,3 +22,5 @@ jspm_packages/
 .node_history
 lcov.info
 results
+
+.env

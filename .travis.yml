@@ -5,16 +5,21 @@ language: node_js
 node_js:
   - 12.2.0
 
+services:
+  - docker
+
 branches:
   only:
     - master
+    - preparation
 
 cache:
   directories:
     - node_modules
 
 before_install:
-  - echo Before install!
+  - ./ci/before_install.sh
+  - ./bin/aws-encryption-cli --decrypt -S --input .env.enc --output .env 
 
 install:
   - echo Installing
@@ -31,6 +36,9 @@ after_success:
 env:
   global:
     - NODE_ENV=test
+    - AWS_PROFILE=default
+    # AWS_CREDENTIALS_FILE
+    - secure: plrPhY5TXpoMQohApXV1Pw07z7FcaXM6YC3sHNNDcv7ETyC1o2X21lP6cQb0zn5CCwx+rAYOcl3B75BrE4oVtPGZJB2jYVi94u4vRKygCfZ0JaABCxuqnsWNmabHFlzOTWOnHjAhNx0gQPEGc4wpkwFsHwoauUoDzLfw+Ib+L6kk7cgdRwHZ+7GQegJPnhYMTiKSL4ZiVA4amC3T5eTVMwd/U99SfQ6QeTgrOG1rEw/KtjrhFsty0jsBBa53Zt6u9Sx4pRuewEO9c1ZYAF3OCE+y/kvyWN4oN2RLvlpi18yN0kHZmeDfHSmy+VUMiM9wX7354z8x+DetCBKpxn0rl/4JGWSmQ+qv+LTAmTVACQ6UX90ef4wSHdONfrQDSIj8evAkA9PfsSq5dQ7OFJdgjtpcDpLq/BmF3yZ46cNz4Lk7r+hoUamj1QsT/aoKst16evJR/dlsbmQaYWrLwpS0346m5EMCJNY7FGgz1QNxFHAr9T0JK6vJAYZrmXkzQWxxye0s168oLkZR2JTutCB6DtulJQNdrTS614rKduStDehWFdT0MD3Zuu4VKoG3JayDdlysgYOK/ZOH733BZ2BZodWd8Z3fmLZOIvtSjWfSG/hCypgLULnygS2gW/cUdZvSHJfNr8BBjQPOVWZbHHUN5b8zcyj3b0OW4SZTj30DL8E=
 
 deploy:
   - provider: heroku
@@ -38,7 +46,7 @@ deploy:
     api_key:
       secure: VoS00mKg9gEGjVkPcYb7fmIxSyI9wYlXl23A2rzyc/HeooU33cPR8pd2HuJK3JTrgyHXPnyT9Sj7Kz/4i49vdW1IP3KlHjbTxwAAp5Cv0QjY6pfg6dAxw6LqzPYTbgkXFKoFNLxLbNkwquRwnPC3xY/11BTaUGZBUQPNJXubRZBH7VVB4A9hxR1q8LAk5zjnSof9YQ2gBrWC5iRZqKnKYztlA0pZa1qtuAMSNgnofiSbA1pllmPoQF1dJdoGGvNqsEopKQFzXXUNQk2AdtEyvRPwTzAYWs5e4Bm0skbaBvO0TmrqtsHFm1tp5GsNJ49iYeb35Tva8JOcwq7Kn5I8xO2pkc1qBDAyD+aPsiUk1pJyM6AR+8Tnvjdk74mszEmEmJLoQiIwvGIyNPd2aQpDKEyd2utDzKCI7T4R06/e41t+e+dAMZsgNRM/TWlh8y3KvQTzg525EgliWP95vFIloezR+pAL4r6CFdmVged4TeruvsnLBHF6UUBD+ld2tvgvlcrjAzmOQt/Cl5I4h+R2DqyfkDSxl0pxZwm3svBywTpFUnj2mnHcjQJBH0d7VZbI/ViMi9vF+qeo3tKrZFQcF0q7a2vdEsmyH3eiB8wQ5qq3RAyou5eJPh3peU/HR0AT4IgjJHHnkAaRUULaNezlRgLkAxkJRgL47KghGRKxMJo=
     app:
-      master: aws-secrets-meeting
+      preparation: aws-secrets-meeting
     on:
       repo: jlsan92/aws-secrets-meeting
 
