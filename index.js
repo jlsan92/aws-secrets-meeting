@@ -17,3 +17,7 @@ app.get('/list-buckets', async (req, res) => {
 
   return res.json({ buckets })
 })
+
+app.get('/env', async (req, res) => {
+  return res.json({ key: process.env.AWS_ACCESS_KEY_ID, region: process.env.AWS_REGION })
+})
