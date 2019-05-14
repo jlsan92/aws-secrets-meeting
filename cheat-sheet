@@ -8,7 +8,65 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ./bin/aws-encryption-cli --encrypt -S --input .env --output .env.enc --master-keys key=arn:aws:kms:us-east-1:805382315593:key/a7da3310-8c33-4a6f-b23a-746c42497467
 ./bin/aws-encryption-cli --decrypt -S --input .env.enc --output .env
 
+[default]
+aws_access_key_id=XXX
+aws_secret_access_key=XXX
+region=us-east-1
+
 #!/usr/bin/env bash
+AWS_ACCESS_KEY_ID=XXXX
+AWS_SECRET_ACCESS_KEY=XXXX
+AWS_REGION=us-east-1
+
+#!/usr/bin/env bash
+AWS_PROFILE=${AWS_PROFILE:-"playground"} 
+ 
+docker run \
+  --rm \
+  --volume "${HOME}/.aws":/root/.aws \
+  --volume "$(pwd)":/mnt/root \
+  --env AWS_PROFILE="${AWS_PROFILE}" \
+  alaneor/aws-encryption-sdk-cli:latest "$@"
+
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+
+mkdir -p ~/.aws && echo ${AWS_CREDENTIALS_FILE} | base64 -d > ~/.aws/credentials
+
+
+#!/usr/bin/env bash
+
+# Load environment variables for the current Heroku app
+set -o allexport
+source ".env"
+set +o allexport

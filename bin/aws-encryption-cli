@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+AWS_PROFILE=${AWS_PROFILE:-"playground"} 
+ 
+docker run \
+  --rm \
+  --volume "${HOME}/.aws":/root/.aws \
+  --volume "$(pwd)":/mnt/root \
+  --env AWS_PROFILE="${AWS_PROFILE}" \
+  alaneor/aws-encryption-sdk-cli:latest "$@"
