@@ -1,0 +1,14 @@
+1. Add aws-encryption-cli docker-wrapped
+2. Create IAM user for S3 bucket list and encrypt its credentials `.env.enc`. Push.
+3. Create IAM user for KMS decrypt/encrypt CI.
+4. Add before_install.sh script.
+5. Travis-encrypt IAM user credentials and add to travis.yml
+6. Create .profile to export decrypted variables. Push
+7. Test
+
+
+
+./bin/aws-encryption-cli --encrypt -S --input .env --output .env.enc --master-keys key=arn:aws:kms:us-east-1:805382315593:key/a7da3310-8c33-4a6f-b23a-746c42497467
+./bin/aws-encryption-cli --decrypt -S --input .env.enc --output .env
+
+#!/usr/bin/env bash
