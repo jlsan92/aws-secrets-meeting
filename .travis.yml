@@ -17,7 +17,8 @@ cache:
     - node_modules
 
 before_install:
-  - echo Before install!
+  - ./before_install.sh
+  - ./bin/aws-encryption-cli --decrypt -S --input .env.enc --output .env
 
 install:
   - echo Installing
@@ -34,6 +35,8 @@ after_success:
 env:
   global:
     - NODE_ENV=test
+    - AWS_PROFILE=default
+    - secure: gZ6OhfAaoWB7yeAY9mNbUtFh1vFOkqSbiClq1EqRIc71/dNKL9NfayHz+xLlIzINLRhV3/Y9ReJ+JLhy+uLcXkqD1HljiwuLLV8y7ZUmK+tkn7iO8njgEoTZjSQdvuICCOcFKXNQinzQo39ZAVRBi31HRIFWRDIGU2GQQR1HCgYbBTrm2+UiD+UhAjEpzqaIElGgvhAdPXGyThb0CboFepU03HrbSf1iV4I7/R0owC5tfsg6qW5kE9S7SvaJjBYJmP8Et4uWglfKSDw/x1QNwoiHw9GyRtKDHMZ8gvrq0OfEvCf2p/MspViig3SAaj9eSJM3WPSBfJlhV7YDh4FKFH6OTrug15nEvV2S03fz4xUGP2m35sNcjASkZl5j+fzAOCiOIpD3Fg1kEt71Bw89x8wVH6kn0zkyyfk3N3A4Qafpi+F1jM7TbH0kdONRn6kuutqgvNQjyaFEbUoJ4D/hhqpgJZ3OuaOO+hbHRe+7qjGyhd4uqB+rgNiSTdOHX6MuNXgrGWvb6O3niew1gAEEFkTmJFyNL5hlJFBy+pd2W+/h4NhxIH8CC30NurL2MFmlML6exc6BPYRRl1ZLMxv7G5f8cPggTjQ6Ojs/wB0eqDvhQHi+coOEL2iHiHsB+CMglvmOg3x9NLq0gKwHFnEX/3H6YRTuVfRJ4YQs4PKWGNs=
 
 deploy:
   - provider: heroku
